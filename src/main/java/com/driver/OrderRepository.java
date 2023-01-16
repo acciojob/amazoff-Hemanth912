@@ -33,10 +33,17 @@ public class OrderRepository {
 
     public void addPartnerToOrder(String orderId, String partnerId)
     {
-        List<String> orders = new ArrayList<>();
-        orders.add(orderId);
-        orderAssigned++;
-        pairDb.put(partnerId,orders);
+        if(pairDb.containsKey(partnerId))
+        {
+            List<String> list = pairDb.get(partnerId);
+            list.add(orderId);
+        }
+        else {
+            List<String> orders = new ArrayList<>();
+            orders.add(orderId);
+            orderAssigned++;
+            pairDb.put(partnerId, orders);
+        }
     }
 
     public Order getOrderFromDb(String orderId)
