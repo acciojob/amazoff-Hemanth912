@@ -17,18 +17,11 @@ public class Order {
             hr+=deliveryTime.charAt(i);
             i++;
         }
-        String min = deliveryTime.substring(i+1);
-        this.deliveryTime = Integer.parseInt(hr)*60+Integer.parseInt(min);
+        deliveryTime = deliveryTime.substring(i+1);
+        this.deliveryTime = Integer.parseInt(hr)*60+Integer.parseInt(deliveryTime);
 
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setDeliveryTime(int deliveryTime) {
-        this.deliveryTime = deliveryTime;
-    }
 
     public Order() {
     }
