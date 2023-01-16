@@ -15,7 +15,7 @@ public class OrderRepository {
     private Map<String,Order> orderDb;
     private Map<String,DeliveryPartner> partnerDb;
     private Map<String,List<String>> pairDb;
-    private int orderAssigned=0;
+
 
     public OrderRepository(Map<String, Order> orderDb, Map<String, DeliveryPartner> partnerDb, Map<String, List<String>> pairDb) {
         this.orderDb = new HashMap<>();
@@ -41,14 +41,31 @@ public class OrderRepository {
         {
             List<String> list = pairDb.get(partnerId);
             list.add(orderId);
-            orderAssigned++;
         }
         else {
             List<String> orders = new ArrayList<>();
             orders.add(orderId);
-            orderAssigned++;
             pairDb.put(partnerId, orders);
         }
+        increasecount(partnerId);
+    }
+
+    private void increasecount(String partnerId) {
+        // TODO Auto-generated method stub
+        DeliveryPartner d=null;
+        if(partnerDb.containsKey(partnerId))
+        {
+            d=partnerDb.get(partnerId);
+            d.setNumberOfOrders(d.getNumberOfOrders()+1);
+        }
+        else
+        {
+            d=new DeliveryPartner(partnerId);
+            d.setNumberOfOrders(1);
+            partnerDb.put(partnerId, d);
+
+        }
+
     }
 
     public Order getOrderFromDb(String orderId){
