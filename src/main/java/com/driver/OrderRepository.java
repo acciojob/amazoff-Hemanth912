@@ -11,6 +11,7 @@ import java.util.*;
 
 public class OrderRepository {
 
+
     HashMap<String,Order> orderDb = new HashMap<>();
     HashMap<String,DeliveryPartner> partnerDb = new HashMap<>();
 
@@ -46,14 +47,19 @@ public class OrderRepository {
         }
     }
 
-    public Order getOrderFromDb(String orderId)
-    {
-        return orderDb.get(orderId);
+    public Order getOrderFromDb(String orderId){
+        if(orderDb.containsKey(orderId))
+            return orderDb.get(orderId);
+        else
+            return null;
     }
 
     public DeliveryPartner getPartnerFromDb(String partnerId)
     {
-        return partnerDb.get(partnerId);
+        if(partnerDb.containsKey(partnerId))
+            return partnerDb.get(partnerId);
+        else
+            return null;
     }
 
     public int numOfOrderForPartner(String partnerId)
