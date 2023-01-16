@@ -12,13 +12,16 @@ import java.util.*;
 public class OrderRepository {
 
 
-    HashMap<String,Order> orderDb = new HashMap<>();
-    HashMap<String,DeliveryPartner> partnerDb = new HashMap<>();
+    private Map<String,Order> orderDb;
+    private Map<String,DeliveryPartner> partnerDb;
+    private Map<String,List<String>> pairDb;
+    private int orderAssigned=0;
 
-    HashMap<String,List<String>> pairDb = new HashMap<>();
-
-    public int orderAssigned=0;
-
+    public OrderRepository(Map<String, Order> orderDb, Map<String, DeliveryPartner> partnerDb, Map<String, List<String>> pairDb) {
+        this.orderDb = new HashMap<>();
+        this.partnerDb = new HashMap<>();
+        this.pairDb = new HashMap<>();
+    }
 
     public void addOrderToDb(Order order)
     {
