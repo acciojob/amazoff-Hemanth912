@@ -63,7 +63,6 @@ public class OrderRepository {
             d=new DeliveryPartner(partnerId);
             d.setNumberOfOrders(1);
             partnerDb.put(partnerId, d);
-
         }
 
     }
@@ -115,9 +114,26 @@ public class OrderRepository {
 
     public int orderUnassigned()
     {
-        int count=orderDb.keySet().size();
-        return Math.abs(count-orderAssigned);
+        int count=0;
+        HashSet<String> map=new HashSet<>();
+        for(List<String> a:pairDb.values())
+        {
+            List<String> list=a;
+            for(String s: list)
+            {
+                map.add(s);
+            }
+        }
+        for(String s:orderDb.keySet())
+        {
+            if(!map.contains(s))
+            {
+                count++;
+            }
+        }
+        return count;
     }
+
 
     public int orderleftundelivered(String time,String partnerId)
     {
