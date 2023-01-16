@@ -38,6 +38,7 @@ public class OrderRepository {
         {
             List<String> list = pairDb.get(partnerId);
             list.add(orderId);
+            orderAssigned++;
         }
         else {
             List<String> orders = new ArrayList<>();
@@ -64,13 +65,21 @@ public class OrderRepository {
 
     public int numOfOrderForPartner(String partnerId)
     {
-        List<String> orders = pairDb.get(partnerId);
-        return orders.size();
+        DeliveryPartner d = null;
+        if(partnerDb.containsKey(partnerId))
+        {
+            d=partnerDb.get(partnerId);
+        }
+        return d.getNumberOfOrders();
     }
 
     public List<String> OrdersForPartner(String partnerId)
     {
-        List<String> orders = pairDb.get(partnerId);
+        List<String> orders = null;
+        if(pairDb.containsKey(partnerId))
+        {
+            orders=pairDb.get(partnerId);
+        }
         return orders;
     }
 
@@ -103,6 +112,8 @@ public class OrderRepository {
         String min=time.substring(i+1);
 
         int t=Integer.parseInt(hr)*60+Integer.parseInt(min);
+        if(!pairDb.containsKey(partnerId))
+            return 0;
 
         for(String a:pairDb.get(partnerId))
         {
@@ -112,6 +123,8 @@ public class OrderRepository {
                 if(o.getDeliveryTime()>t)
                     count++;
             }
+            else
+                return 0;
         }
         return count;
     }
